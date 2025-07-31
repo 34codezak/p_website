@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Navbar 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">MyPortfolio</a>
@@ -30,7 +31,7 @@
     <button class="btn btn-sm btn-outline-light ms3" id="toggleDark"><i class="bi bi-moon-stars-fill"></i></button>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section 
 
   <section class="hero" data-aos="fade-up">
     <div class="container">
@@ -54,7 +55,7 @@
     </div>
   </section>-->
 
-  <!-- About Me -->
+  <!-- About Me - 
   <section id="about" class="py-5 bg-light" data-aos="fade-up">
     <div class="container">
       <h2>About Me</h2>
@@ -69,7 +70,7 @@
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects  
   <section id="projects" class="py-5" data-aos="fade-up">
     <div class="container">
       <h2>Projects</h2>
@@ -84,12 +85,12 @@
             </div>
           </div>
         </div>
-        <!-- Add more projects here -->
+        <!-- Add more projects here  
       </div>
     </div>
   </section>
 
-  <!-- Resume -->
+  <!-- Resume  
   <section id="resume" class="py-5 bg-light text-center" data-aos="fade-up">
     <div class="container">
       <h2>Resume</h2>
@@ -98,7 +99,7 @@
     </div>
   </section>
 
-  <!-- Contact Form -->
+  <!-- Contact Form  
   <section id="contact" class="py-5" data-aos="fade-up">
     <div class="container">
       <h2>Contact Me</h2>
@@ -121,7 +122,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer - 
   <footer class="bg-dark text-white text-center py-4">
     <p>© 2025 Zachary. All rights reserved.</p>
     <p>
@@ -135,5 +136,290 @@
   <script src="js/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>AOS.init();</script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <!-- W3.CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- AOS Animation -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+    }
+    
+    /* Overlay for content readability */
+    .content-overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      color: white;
+    }
+    
+    /* Theme colors */
+    .w3-theme {
+      background-color: rgba(0, 0, 0, 0.8) !important;
+      color: white !important;
+    }
+    .w3-theme-light {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(5px);
+      color: white !important;
+    }
+    .w3-theme-dark {
+      background-color: rgba(0, 0, 0, 0.9) !important;
+    }
+    
+    /* Content sections */
+    section {
+      padding: 96px 0;
+    }
+    
+    /* Profile image */
+    .profile-img {
+      max-width: 300px;
+      border: 5px solid white;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    
+    /* Cards */
+    .card {
+      transition: transform 0.3s;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(5px);
+      color: white !important;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Buttons */
+    .w3-button {
+      transition: all 0.3s;
+    }
+    .w3-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    
+    /* Social links */
+    .social-links a {
+      transition: color 0.3s;
+    }
+    .social-links a:hover {
+      color: #4CAF50 !important;
+    }
+    
+    /* Dark mode toggle */
+    #toggleDark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+    }
+    
+    /* Form styling */
+    .w3-input {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    .w3-input::placeholder {
+      color: #ccc !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background overlay -->
+  <div class="content-overlay">
+  
+    <!-- Navbar -->
+    <nav class="w3-theme w3-top">
+      <div class="w3-bar w3-padding">
+        <a class="w3-bar-item w3-button w3-hover-white w3-hide-small" href="#">MyPortfolio</a>
+        <a class="w3-bar-item w3-button w3-hover-white w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="toggleMenu()">
+          <i class="fa fa-bars"></i>
+        </a>
+        <div class="w3-right w3-hide-small">
+          <a class="w3-bar-item w3-button w3-hover-white" href="#about">About</a>
+          <a class="w3-bar-item w3-button w3-hover-white" href="#projects">Projects</a>
+          <a class="w3-bar-item w3-button w3-hover-white" href="#resume">Resume</a>
+          <a class="w3-bar-item w3-button w3-hover-white" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div id="mobileMenu" class="w3-bar-block w3-theme-dark w3-hide w3-hide-large w3-hide-medium">
+        <a class="w3-bar-item w3-button w3-hover-white" href="#about" onclick="toggleMenu()">About</a>
+        <a class="w3-bar-item w3-button w3-hover-white" href="#projects" onclick="toggleMenu()">Projects</a>
+        <a class="w3-bar-item w3-button w3-hover-white" href="#resume" onclick="toggleMenu()">Resume</a>
+        <a class="w3-bar-item w3-button w3-hover-white" href="#contact" onclick="toggleMenu()">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="w3-display-container" style="height: 100vh;" data-aos="fade-up">
+      <div class="w3-display-middle w3-center">
+        <h1 class="w3-xxlarge"><strong>Hi, I'm Zachary Kemoni,</strong></h1>
+        <h2 class="w3-large">A passionate Backend Developer and DevOps Engineer</h2>
+        <a href="#contact" class="w3-button w3-white w3-padding-large w3-large w3-margin-top">
+          <i class="fa fa-comment"></i> Get In Touch
+        </a>
+      </div>
+      <div class="w3-display-bottommiddle w3-padding-32">
+        <a href="#about" class="w3-button w3-circle w3-white w3-hover-green">
+          <i class="fa fa-arrow-down"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- About Me -->
+    <section id="about" class="w3-theme-light" data-aos="fade-up">
+      <div class="w3-container">
+        <h2 class="w3-center"><strong>About Me</strong></h2>
+        <div class="w3-row-padding w3-center" style="margin-top:64px">
+          <div class="w3-quarter">
+            <img src="assets/profile.jpg" alt="Profile" class="w3-circle profile-img">
+          </div>
+          <div class="w3-threequarter w3-left-align w3-padding-large">
+            <p>Hello! I'm Zachary, a developer specializing in building and designing scalable Backend solutions, and DevOps Engineering.</p>
+            <div class="w3-row w3-margin-top">
+              <div class="w3-half">
+                <h4><strong>Skills</strong></h4>
+                <ul class="w3-ul">
+                  <li>Backend Development</li>
+                  <li>DevOps Engineering</li>
+                  <li>Cloud Architecture</li>
+                </ul>
+              </div>
+              <div class="w3-half">
+                <h4><strong>Technologies</strong></h4>
+                <ul class="w3-ul">
+                  <li>Python, Java, Node.js</li>
+                  <li>Docker, Kubernetes</li>
+                  <li>AWS, Azure</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" data-aos="fade-up">
+      <div class="w3-container">
+        <h2 class="w3-center"><strong>Projects</strong></h2>
+        <div class="w3-row-padding" style="margin-top:64px">
+          <div class="w3-col l4 m6 w3-margin-bottom">
+            <div class="w3-card">
+              <img src="img/project1.png" style="width:100%">
+              <div class="w3-container">
+                <h3><b>Project Title</b></h3>
+                <p>Short description of the project.</p>
+                <p><a href="#" class="w3-button w3-white w3-block"><i class="fa fa-external-link-alt"></i> View Project</a></p>
+              </div>
+            </div>
+          </div>
+          <!-- Add more projects here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" class="w3-theme-light w3-center" data-aos="fade-up">
+      <div class="w3-container">
+        <h2 class="w3-center"><strong>Resume</strong></h2>
+        <p class="w3-large">Download my resume for more details about my work and skills.</p>
+        <a href="assets/resume.pdf" class="w3-button w3-white w3-padding-large w3-large w3-margin-top" download>
+          <i class="fa fa-download"></i> Download Resume
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" data-aos="fade-up">
+      <div class="w3-container">
+        <h2 class="w3-center"><strong>Contact Me</strong></h2>
+        <form id="contactForm" class="w3-container" style="max-width:600px;margin:auto">
+          <div class="w3-section">
+            <label>Name</label>
+            <input class="w3-input w3-border" type="text" name="Name" required>
+          </div>
+          <div class="w3-section">
+            <label>Email</label>
+            <input class="w3-input w3-border" type="text" name="Email" required>
+          </div>
+          <div class="w3-section">
+            <label>Message</label>
+            <textarea class="w3-input w3-border" name="Message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="w3-button w3-white w3-right w3-padding">
+            <i class="fa fa-paper-plane"></i> Send Message
+          </button>
+          <div id="formAlert" class="w3-panel w3-hide"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w3-theme-dark w3-center w3-padding-32">
+      <p>© 2025 Zachary. All rights reserved.</p>
+      <div class="social-links w3-xlarge w3-section">
+        <a href="https://github.com/34codezak" class="w3-hover-text-green w3-margin-right"><i class="fab fa-github"></i></a>
+        <a href="#" class="w3-hover-text-green w3-margin-right"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="w3-hover-text-green"><i class="fab fa-twitter"></i></a>
+      </div>
+      <button id="toggleDark" class="w3-button w3-circle w3-white w3-hover-green" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize animations
+    AOS.init();
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+      var x = document.getElementById("mobileMenu");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else { 
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+    
+    // Dark mode toggle
+    document.getElementById('toggleDark').addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      this.querySelector('i').classList.toggle('fa-moon');
+      this.querySelector('i').classList.toggle('fa-sun');
+    });
+    
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var alert = document.getElementById('formAlert');
+      alert.className = "w3-panel w3-green";
+      alert.innerHTML = "<p>Message sent successfully!</p>";
+      alert.classList.remove('w3-hide');
+      setTimeout(function(){ alert.classList.add('w3-hide'); }, 3000);
+      this.reset();
+    });
+  </script>
 </body>
 </html>
