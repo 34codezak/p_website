@@ -430,16 +430,6 @@
       this.querySelector('i').classList.toggle('fa-sun');
     });
     
-    // Form submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var alert = document.getElementById('formAlert');
-      alert.className = "w3-panel w3-green";
-      alert.innerHTML = "<p>Message sent successfully!</p>";
-      alert.classList.remove('w3-hide');
-      setTimeout(function(){ alert.classList.add('w3-hide'); }, 3000);
-      this.reset();
-    });
   </script>
 
   
@@ -460,21 +450,40 @@ const firebaseConfig = {
   measurementId: "G-4GSGV6NDC6"
 };
 
-  // Handle form submission
-  document.getElementById('contactForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Save to Firebase
-    firebase.database().ref('contacts').push({
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      message: document.getElementById('message').value,
-      timestamp: new Date().toISOString()
-    }).then(() => {
-      alert("Message sent!");
-      e.target.reset();
+// Initialize Firebase before using any services
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+if (typeof firebase.analytics === 'function') {
+  firebase.analytics();
+}
+
+const contactForm = document.getElementById('contactForm');
+const formAlert = document.getElementById('formAlert');
+
+// Handle form submission
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const submission = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    message: document.getElementById('message').value,
+    timestamp: new Date().toISOString()
+  };
+
+  firebase.database().ref('contacts').push(submission)
+    .then(() => {
+      formAlert.className = "w3-panel w3-green";
+      formAlert.innerHTML = "<p>Message sent successfully!</p>";
+      contactForm.reset();
+    })
+    .catch((error) => {
+      formAlert.className = "w3-panel w3-red";
+      formAlert.innerHTML = `<p>Something went wrong: ${error.message}</p>`;
     });
-  });
+});
 </script>
 </body>
 </html>
