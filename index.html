@@ -477,6 +477,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+const database = firebase.database();
 
 if (typeof firebase.analytics === 'function') {
   firebase.analytics();
@@ -496,13 +497,14 @@ contactForm.addEventListener('submit', (e) => {
     timestamp: new Date().toISOString()
   };
 
-  firebase.database().ref('contacts').push(submission)
+  database.ref('contacts').push(submission)
     .then(() => {
       formAlert.className = "w3-panel w3-green";
       formAlert.innerHTML = "<p>Message sent successfully!</p>";
       contactForm.reset();
     })
     .catch((error) => {
+      console.error('Failed to send message:', error);
       formAlert.className = "w3-panel w3-red";
       formAlert.innerHTML = `<p>Something went wrong: ${error.message}</p>`;
     });
