@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Messages</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script>
+    firebase.initializeApp({ /* same config */ });
+    
+    firebase.database().ref('contacts').on('value', (snapshot) => {
+      const messages = snapshot.val();
+      document.getElementById('messages').innerHTML = 
+        JSON.stringify(messages, null, 2);
+    });
+  </script>
+</head>
+<body>
+  <pre id="messages">Loading...</pre>
+</body>
+</html>

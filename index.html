@@ -145,7 +145,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <title>Zachary's Portfolio</title>
   <!-- W3.CSS -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <!-- Fonts and Icons -->
@@ -250,7 +250,7 @@
     <!-- Navbar -->
     <nav class="w3-theme w3-top">
       <div class="w3-bar w3-padding">
-        <a class="w3-bar-item w3-button w3-hover-white w3-hide-small" href="#">MyPortfolio</a>
+        <a class="w3-bar-item w3-button w3-hover-white w3-hide-small" href="#">Zachary's</a>
         <a class="w3-bar-item w3-button w3-hover-white w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="toggleMenu()">
           <i class="fa fa-bars"></i>
         </a>
@@ -297,7 +297,7 @@
             <p>Hello! I'm Zachary, a developer specializing in building and designing scalable Backend solutions, and DevOps Engineering.</p>
             <div class="w3-row w3-margin-top">
               <div class="w3-half">
-                <h4><strong>Skills</strong></h4>
+                <h4><strong style="color: #bbb;">Skills</strong></h4>
                 <ul class="w3-ul">
                   <li>Backend Development</li>
                   <li>DevOps Engineering</li>
@@ -305,9 +305,9 @@
                 </ul>
               </div>
               <div class="w3-half">
-                <h4><strong>Technologies</strong></h4>
+                <h4><strong style="color: #bbb;">Technologies</strong></h4>
                 <ul class="w3-ul">
-                  <li>Python, Java, Node.js</li>
+                  <li>Python, Django, JavaScript, Node.js</li>
                   <li>Docker, Kubernetes</li>
                   <li>AWS, Azure</li>
                 </ul>
@@ -325,15 +325,35 @@
         <div class="w3-row-padding" style="margin-top:64px">
           <div class="w3-col l4 m6 w3-margin-bottom">
             <div class="w3-card">
-              <img src="img/project1.png" style="width:100%">
+              <img src="assets/thoughtflow.png" style="width:100%">
               <div class="w3-container">
-                <h3><b>Project Title</b></h3>
-                <p>Short description of the project.</p>
+                <h3><b>ThoughtFlow~~~ 🧠</b></h3>
+                <p>A daily journal application for daily activities and thoughts.</p>
                 <p><a href="#" class="w3-button w3-white w3-block"><i class="fa fa-external-link-alt"></i> View Project</a></p>
               </div>
             </div>
           </div>
           <!-- Add more projects here -->
+          <div class="w3-col l4 m6 w3-margin-bottom">
+            <div class="w3-card">
+              <img src="assets/construction.png" style="width:100%">
+              <div class="w3-container">
+                <h3><b>Construction Agency</b></h3>
+                <p>A go to site when you need your construction work done.</p>
+                <p><a href="#" class="w3-button w3-white w3-block"><i class="fa fa-external-link-alt"></i> View Project</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="w3-col l4 m6 w3-margin-bottom">
+            <div class="w3-card">
+              <img src="assets/regenarative.png" style="width:100%">
+              <div class="w3-container">
+                <h3><b>Regenerative Agriculture</b></h3>
+                <p>Need tchniques for regenerative agriculture? Check out this site. A site teaching everything sustainable agriculture.</p>
+                <p><a href="#" class="w3-button w3-white w3-block"><i class="fa fa-external-link-alt"></i> View Project</a></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -356,15 +376,15 @@
         <form id="contactForm" class="w3-container" style="max-width:600px;margin:auto">
           <div class="w3-section">
             <label>Name</label>
-            <input class="w3-input w3-border" type="text" name="Name" required>
+            <input class="w3-input w3-border" type="text" name="Name" id="name" required>
           </div>
           <div class="w3-section">
             <label>Email</label>
-            <input class="w3-input w3-border" type="text" name="Email" required>
+            <input class="w3-input w3-border" type="text" name="Email" id="email" required>
           </div>
           <div class="w3-section">
             <label>Message</label>
-            <textarea class="w3-input w3-border" name="Message" rows="4" required></textarea>
+            <textarea class="w3-input w3-border" name="Message" rows="4" id="message" required></textarea>
           </div>
           <button type="submit" class="w3-button w3-white w3-right w3-padding">
             <i class="fa fa-paper-plane"></i> Send Message
@@ -421,5 +441,40 @@
       this.reset();
     });
   </script>
+
+  
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<!-- My custom code -->
+<script>
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBty7-Ncgs2ABlIxXWybqhavT5FgnK9CBg",
+  authDomain: "p-web-db.firebaseapp.com",
+  projectId: "p-web-db",
+  storageBucket: "p-web-db.firebasestorage.app",
+  messagingSenderId: "762422687989",
+  appId: "1:762422687989:web:7b21e0e7a467f634cb6dbc",
+  measurementId: "G-4GSGV6NDC6"
+};
+
+  // Handle form submission
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Save to Firebase
+    firebase.database().ref('contacts').push({
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value,
+      timestamp: new Date().toISOString()
+    }).then(() => {
+      alert("Message sent!");
+      e.target.reset();
+    });
+  });
+</script>
 </body>
 </html>
