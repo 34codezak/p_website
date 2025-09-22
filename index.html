@@ -252,8 +252,8 @@
     <nav class="w3-theme w3-top">
       <div class="w3-bar w3-padding">
         <a class="w3-bar-item w3-button w3-hover-white w3-hide-small" href="#">Zachary's</a>
-        <a class="w3-bar-item w3-button w3-hover-white w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="toggleMenu()">
-          <i class="fa fa-bars"></i>
+        <a id="mobileMenuToggle" class="w3-bar-item w3-button w3-hover-white w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="fa fa-bars" id="menuToggleIcon" aria-hidden="true"></i>
         </a>
         <div class="w3-right w3-hide-small">
           <a class="w3-bar-item w3-button w3-hover-white" href="#about">About</a>
@@ -439,11 +439,37 @@
     
     // Toggle mobile menu
     function toggleMenu() {
-      var x = document.getElementById("mobileMenu");
-      if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-      } else { 
-        x.className = x.className.replace(" w3-show", "");
+      var menu = document.getElementById("mobileMenu");
+      if (!menu) {
+        return;
+      }
+
+      var toggleIcon = document.getElementById("menuToggleIcon");
+      var toggleButton = document.getElementById("mobileMenuToggle");
+      var willOpen = !menu.classList.contains("w3-show");
+
+      if (willOpen) {
+        menu.classList.add("w3-show");
+      } else {
+        menu.classList.remove("w3-show");
+      }
+
+      if (toggleIcon) {
+        if (willOpen) {
+          toggleIcon.classList.remove("fa-bars");
+          toggleIcon.classList.add("fa-times");
+        } else {
+          toggleIcon.classList.remove("fa-times");
+          toggleIcon.classList.add("fa-bars");
+        }
+      }
+
+      if (toggleButton) {
+        toggleButton.setAttribute("aria-expanded", willOpen ? "true" : "false");
+        toggleButton.setAttribute(
+          "aria-label",
+          willOpen ? "Close navigation menu" : "Open navigation menu"
+        );
       }
     }
     
