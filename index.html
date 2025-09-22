@@ -394,7 +394,7 @@
 
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
 
 <!-- My custom code -->
@@ -421,9 +421,9 @@ if (typeof firebase.analytics === 'function') {
 
 let db;
 try {
-  db = firebase.firestore();
+  db = firebase.database();
 } catch (error) {
-  console.error('Failed to initialize Firestore:', error);
+  console.error('Failed to initialize Realtime Database:', error);
 }
 
 const contactForm = document.getElementById('contactForm');
@@ -466,22 +466,6 @@ const toggleSubmitState = (isSubmitting) => {
   }
 };
 
-const withTimeout = (promise, timeoutMs, timeoutMessage) => new Promise((resolve, reject) => {
-  const timer = setTimeout(() => {
-    reject(new Error(timeoutMessage || 'Request timed out. Please try again.'));
-  }, timeoutMs);
-
-  promise
-    .then((value) => {
-      clearTimeout(timer);
-      resolve(value);
-    })
-    .catch((error) => {
-      clearTimeout(timer);
-      reject(error);
-    });
-});
-
 if (contactForm && formAlert) {
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -495,7 +479,7 @@ if (contactForm && formAlert) {
       return;
     }
 
-    if (!db || typeof db.collection !== 'function') {
+    if (!db || typeof db.ref !== 'function') {
       applyAlertStyles('error', 'Unable to send your message right now. Please try again later.');
       return;
     }
@@ -503,16 +487,12 @@ if (contactForm && formAlert) {
     toggleSubmitState(true);
 
     try {
-      await withTimeout(
-        db.collection('contacts').add({
-          name,
-          email,
-          message,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        }),
-        10000,
-        'The request is taking longer than expected. Please check your connection and try again.'
-      );
+      await db.ref('contacts').push({
+        name,
+        email,
+        message,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
 
       applyAlertStyles('success', 'Message sent successfully!');
       contactForm.reset();
