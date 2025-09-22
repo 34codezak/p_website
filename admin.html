@@ -8,6 +8,7 @@
     const firebaseConfig = {
       apiKey: "AIzaSyBty7-Ncgs2ABlIxXWybqhavT5FgnK9CBg",
       authDomain: "p-web-db.firebaseapp.com",
+      databaseURL: "https://p-web-db-default-rtdb.firebaseio.com",
       projectId: "p-web-db",
       storageBucket: "p-web-db.firebasestorage.app",
       messagingSenderId: "762422687989",
@@ -15,38 +16,28 @@
       measurementId: "G-4GSGV6NDC6"
     };
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
 
-    const messagesContainer = document.getElementById('messages');
-    const db = firebase.firestore();
+      const messagesContainer = document.getElementById('messages');
 
-    db.collection('contacts')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) => {
-        if (snapshot.empty) {
+      firebase.database().ref('contacts').on('value', (snapshot) => {
+        const messages = snapshot.val();
+
+        if (!messages) {
           messagesContainer.textContent = 'No messages yet.';
           return;
         }
 
-        const items = snapshot.docs
-          .map((doc) => {
-            const data = doc.data();
-            const sentAt = data.timestamp && typeof data.timestamp.toDate === 'function'
-              ? data.timestamp.toDate()
-              : null;
-
-            const formattedDate = sentAt ? sentAt.toLocaleString() : 'Pending timestamp';
-            return `• ${data.name} <${data.email}>\n  ${data.message}\n  Sent: ${formattedDate}`;
-          })
+        const items = Object.entries(messages)
+          .sort(([, a], [, b]) => new Date(b.timestamp) - new Date(a.timestamp))
+          .map(([, value]) => `• ${value.name} <${value.email}>\n  ${value.message}\n  Sent: ${new Date(value.timestamp).toLocaleString()}`)
           .join('\n\n');
 
         messagesContainer.textContent = items;
-      }, (error) => {
-        console.error('Failed to load messages:', error);
-        messagesContainer.textContent = `Failed to load messages: ${error.message}`;
       });
+    });
   </script>
 </head>
 <body>
