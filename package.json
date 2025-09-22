@@ -1,0 +1,21 @@
+{
+  "name": "p_website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready tooling for the Zachary portfolio website.",
+  "keywords": [
+    "portfolio",
+    "static-site",
+    "vite"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
