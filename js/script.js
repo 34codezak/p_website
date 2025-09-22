@@ -14,7 +14,7 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
         return;
     }
 
-    const recipient = "zachary@example.com";
+    const recipient = "kmoniprojects@gmail.com";
     const gmailUrl = new URL("https://mail.google.com/mail/");
     gmailUrl.searchParams.set("view", "cm");
     gmailUrl.searchParams.set("fs", "1");
