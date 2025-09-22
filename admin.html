@@ -3,7 +3,7 @@
 <head>
   <title>Messages</title>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBty7-Ncgs2ABlIxXWybqhavT5FgnK9CBg",
@@ -20,22 +20,33 @@
     }
 
     const messagesContainer = document.getElementById('messages');
+    const db = firebase.firestore();
 
-    firebase.database().ref('contacts').on('value', (snapshot) => {
-      const messages = snapshot.val();
+    db.collection('contacts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        if (snapshot.empty) {
+          messagesContainer.textContent = 'No messages yet.';
+          return;
+        }
 
-      if (!messages) {
-        messagesContainer.textContent = 'No messages yet.';
-        return;
-      }
+        const items = snapshot.docs
+          .map((doc) => {
+            const data = doc.data();
+            const sentAt = data.timestamp && typeof data.timestamp.toDate === 'function'
+              ? data.timestamp.toDate()
+              : null;
 
-      const items = Object.entries(messages)
-        .sort(([, a], [, b]) => new Date(b.timestamp) - new Date(a.timestamp))
-        .map(([, value]) => `• ${value.name} <${value.email}>\n  ${value.message}\n  Sent: ${new Date(value.timestamp).toLocaleString()}`)
-        .join('\n\n');
+            const formattedDate = sentAt ? sentAt.toLocaleString() : 'Pending timestamp';
+            return `• ${data.name} <${data.email}>\n  ${data.message}\n  Sent: ${formattedDate}`;
+          })
+          .join('\n\n');
 
-      messagesContainer.textContent = items;
-    });
+        messagesContainer.textContent = items;
+      }, (error) => {
+        console.error('Failed to load messages:', error);
+        messagesContainer.textContent = `Failed to load messages: ${error.message}`;
+      });
   </script>
 </head>
 <body>
