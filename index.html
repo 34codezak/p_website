@@ -561,7 +561,13 @@ if (typeof firebase.analytics === 'function') {
   firebase.analytics();
 }
 
-const db = firebase.firestore();
+let db;
+try {
+  db = firebase.firestore();
+} catch (error) {
+  console.error('Failed to initialize Firestore:', error);
+}
+
 const contactForm = document.getElementById('contactForm');
 const formAlert = document.getElementById('formAlert');
 
@@ -602,6 +608,22 @@ const toggleSubmitState = (isSubmitting) => {
   }
 };
 
+const withTimeout = (promise, timeoutMs, timeoutMessage) => new Promise((resolve, reject) => {
+  const timer = setTimeout(() => {
+    reject(new Error(timeoutMessage || 'Request timed out. Please try again.'));
+  }, timeoutMs);
+
+  promise
+    .then((value) => {
+      clearTimeout(timer);
+      resolve(value);
+    })
+    .catch((error) => {
+      clearTimeout(timer);
+      reject(error);
+    });
+});
+
 if (contactForm && formAlert) {
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -615,15 +637,24 @@ if (contactForm && formAlert) {
       return;
     }
 
+    if (!db || typeof db.collection !== 'function') {
+      applyAlertStyles('error', 'Unable to send your message right now. Please try again later.');
+      return;
+    }
+
     toggleSubmitState(true);
 
     try {
-      await db.collection('contacts').add({
-        name,
-        email,
-        message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      await withTimeout(
+        db.collection('contacts').add({
+          name,
+          email,
+          message,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }),
+        10000,
+        'The request is taking longer than expected. Please check your connection and try again.'
+      );
 
       applyAlertStyles('success', 'Message sent successfully!');
       contactForm.reset();
