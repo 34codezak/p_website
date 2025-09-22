@@ -16,26 +16,27 @@
       measurementId: "G-4GSGV6NDC6"
     };
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-
-    const messagesContainer = document.getElementById('messages');
-
-    firebase.database().ref('contacts').on('value', (snapshot) => {
-      const messages = snapshot.val();
-
-      if (!messages) {
-        messagesContainer.textContent = 'No messages yet.';
-        return;
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
       }
 
-      const items = Object.entries(messages)
-        .sort(([, a], [, b]) => new Date(b.timestamp) - new Date(a.timestamp))
-        .map(([, value]) => `• ${value.name} <${value.email}>\n  ${value.message}\n  Sent: ${new Date(value.timestamp).toLocaleString()}`)
-        .join('\n\n');
+      const messagesContainer = document.getElementById('messages');
 
-      messagesContainer.textContent = items;
+      firebase.database().ref('contacts').on('value', (snapshot) => {
+        const messages = snapshot.val();
+
+        if (!messages) {
+          messagesContainer.textContent = 'No messages yet.';
+          return;
+        }
+
+        const items = Object.entries(messages)
+          .sort(([, a], [, b]) => new Date(b.timestamp) - new Date(a.timestamp))
+          .map(([, value]) => `• ${value.name} <${value.email}>\n  ${value.message}\n  Sent: ${new Date(value.timestamp).toLocaleString()}`)
+          .join('\n\n');
+
+        messagesContainer.textContent = items;
+      });
     });
   </script>
 </head>
