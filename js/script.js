@@ -18,10 +18,15 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
 });
 
 const toggleDark = document.getElementById("toggleDark");
-toggleDark.addEventListener("click", function () {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
-});
+if (toggleDark) {
+    toggleDark.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+    });
+}
 
 // onload
 if (localStorage.getItem("theme") === "dark") {
