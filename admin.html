@@ -3,6 +3,7 @@
 <head>
   <title>Messages</title>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
   <script>
     const firebaseConfig = {
@@ -16,10 +17,11 @@
       measurementId: "G-4GSGV6NDC6"
     };
 
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
+    document.addEventListener('DOMContentLoaded', () => {
       const messagesContainer = document.getElementById('messages');
 
       firebase.database().ref('contacts').on('value', (snapshot) => {
