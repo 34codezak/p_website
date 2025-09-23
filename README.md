@@ -4,7 +4,7 @@ This project contains a static portfolio site powered by HTML, CSS, and vanilla 
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 18 or newer (the Dockerfile uses Node.js 20)
+- [Node.js](https://nodejs.org/) 22 or newer (the tooling and Dockerfile target Node.js 22)
 - npm (bundled with Node.js)
 - [Docker](https://www.docker.com/) if you plan to build the production image locally
 
